@@ -1,0 +1,7 @@
+docker images 							查詢所有映像檔
+docker build -t 帳號/自訂容器名稱 .		找目錄當層的 Dockerfile建立映像檔
+docker container run 容器名稱			執行映像檔
+
+
+建立影像檔時
+請把要執行的容器檔名變更為 Dockerfile
