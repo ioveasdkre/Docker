@@ -13,3 +13,4 @@ dokcer container run -d —name 命名 image檔			容器持續執行映像檔
 dokcer run -d —name 命名 image檔					容器持續執行映像檔
 dokcer run -d —name 命名 image檔 tail -f /dev/null	容器持續執行映像檔(持續追蹤 file的 log)
 docker exce -it containerID /bin/sh					容器內執行 PowerShell
+docker build -t 帳號/自訂容器名稱 .					建立映像檔
