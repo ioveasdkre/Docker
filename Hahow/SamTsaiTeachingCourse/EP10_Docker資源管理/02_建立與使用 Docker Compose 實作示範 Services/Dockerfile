@@ -19,12 +19,5 @@ RUN echo "<h3>I am ${whoami}. Iam taking this great Docker Course. Round 01<h3>"
 	echo "<h3>I am ${whoami}. Iam taking this great Docker Course. Round 02<h3>" >> index.html && \
 	echo "<h3>I am ${whoami}. Iam taking this great Docker Course. Round 03<h3>" >> index.html
 
-# 將檔案複製到根目錄
-COPY ./content.txt ./
-RUN ls -l ./
-RUN cat ./content.txt >> index.html
-# 設置維護者標籤
-LABEL maintainer="MyName"
-
 # 設置默認命令啟動apache2
 ENTRYPOINT ["httpd", "-D", "FOREGROUND"] #預設啟動指令
