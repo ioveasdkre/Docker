@@ -1,0 +1,30 @@
+version: "3.8" # 版本
+services:
+  myweb:
+    build:
+      context: . # dockerfile目錄所在位置 當下目錄
+      args:
+        whoami: "Tony" # 設定參數
+    image: uopsdod/myweb:latest
+    ports:
+      - "8081:80"
+  myweb2:
+    build:
+      context: . # dockerfile目錄所在位置 當下目錄
+      args:
+        whoami: "Chris" # 設定參數
+    image: uopsdod/myweb1:latest
+    ports:
+      - "8082:80"
+  myweb3:
+    build:
+      context: . # dockerfile目錄所在位置 當下目錄
+      args:
+        whoami: "Jane" # 設定參數
+    image: uopsdod/myweb2:latest
+    ports:
+      - "8083:80"
+  myweb4:
+    image: uopsdod/myweb:latest
+    ports:
+      - "8084:80"

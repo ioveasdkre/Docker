@@ -8,6 +8,8 @@ services:
     image: uopsdod/myweb:latest
     ports:
       - "8081:80"
+    networks: # 設定網路空間
+      - mybridge001
   myweb2:
     build:
       context: . # dockerfile目錄所在位置 當下目錄
@@ -16,6 +18,8 @@ services:
     image: uopsdod/myweb1:latest
     ports:
       - "8082:80"
+    networks: # 設定網路空間
+      - mybridge001
   myweb3:
     build:
       context: . # dockerfile目錄所在位置 當下目錄
@@ -24,11 +28,28 @@ services:
     image: uopsdod/myweb2:latest
     ports:
       - "8083:80"
+    networks: # 設定網路空間
+      - mybridge001
   myweb4:
-    build:
-      context: . # dockerfile目錄所在位置 當下目錄
-      args:
-        whoami: "Jane" # 設定參數
     image: uopsdod/myweb:latest
     ports:
       - "8084:80"
+    networks: # 設定網路空間
+      - mybridge002
+  myweb5:
+    image: uopsdod/myweb:latest
+    ports:
+      - "8085:80"
+    networks: # 設定網路空間
+      - mybridge002
+    volumes: # 設定 volumes
+      - type: volume
+        source: mainpage-vol002
+        target: /var/www/localhost/htdocs/ # 設定目錄為 apache首頁的位置
+      
+networks: # 建立網路空間
+  mybridge001:
+  mybridge002:
+
+volumes: # 建立 volume
+  mainpage-vol002:
