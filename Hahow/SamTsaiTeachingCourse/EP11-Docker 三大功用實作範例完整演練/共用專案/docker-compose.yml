@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+  mysql-db:
+    container_name: mydb # 容器名稱
+    build:
+      context: ./db # 在指定目錄裡會有一個 dockerfile
+    image: thelastant/mysql-db-01 # 映像檔名稱
+    ports: 
+      - "3306:3306"
+    environment: # 設定變數 這裡會用 .nev的值去替換掉
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    networks: # 設定網路模式
+      my-bridge-001:
+    volumes: # 設定本地端空間
+      - db-data:/var/lib/mysql
+  java-app:
+    container_name: myapp
+    build:
+      context: ./app
+    image: thelastant/java-app-01
+    ports:
+      - "8080:8080"
+    # 等待 db啟動以後才往後執行
+    command: ./wait-for-it.sh mydb:3306 -- java -jar target/accessing-data-mysql-0.0.1-SNAPSHOT.jar 
+    environment: # 設定變數 這裡會用 java專案的 Dockerfile的值去替換掉
+      - DB_HOST_IP=mydb
+    networks:
+      my-bridge-001:
+  react-web:
+    container_name: myweb
+    build:
+      context: ./web
+    image: thelastant/react-web-01
+    command: ./wait-for-it.sh ${API_HOST_IP}:8080 -- npm start
+    ports: 
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_HOST_IP=${API_HOST_IP}
+
+
+networks: # 建立 metwork空間
+  my-bridge-001:
+
+volumes: # 建立 volume空間
+  db-data:
+
