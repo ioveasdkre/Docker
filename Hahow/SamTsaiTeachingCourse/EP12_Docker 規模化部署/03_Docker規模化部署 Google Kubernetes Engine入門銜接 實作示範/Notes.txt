@@ -1,0 +1,4 @@
+老師學習路線推薦：
+1. Kubernets
+2. GKE(想在雲端上建立 Kubernets)
+3. ESC(想成為 AWS專家)
